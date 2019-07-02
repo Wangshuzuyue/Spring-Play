@@ -1,5 +1,7 @@
 package com.hzw.spring.usermanage.provider.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.hzw.spring.usermanage.api.service.UserService;
 import com.hzw.spring.usermanage.provider.entity.ReportIdNoLocation;
 import com.hzw.spring.usermanage.provider.entity.User;
@@ -45,5 +47,13 @@ public class UserServiceImpl implements UserService{
         criteria1.andIsNotNull("id");
         List<ReportIdNoLocation> reportIdNoLocation = reportIdNoLocationMapper.selectByExample(locationExample);
         return user;
+    }
+
+    @Override
+    public PageInfo<User> page(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<User> userList = userMapper.selectAll();
+        PageInfo<User> pageInfo = new PageInfo<>(userList, 10);
+        return pageInfo;
     }
 }

@@ -28,6 +28,10 @@ public class UserController {
         return userService.get(key);
     }
 
+    @RequestMapping(value = "/page", method = {RequestMethod.GET,RequestMethod.POST})
+    public Object get(@Param(value = "pageNum") Integer pageNum, @Param(value = "pageSize") Integer pageSize){
+        return userService.page(pageNum, pageSize);
+    }
 
     public static void main(String[] args) {
         String str1 = "1,2,3,,";

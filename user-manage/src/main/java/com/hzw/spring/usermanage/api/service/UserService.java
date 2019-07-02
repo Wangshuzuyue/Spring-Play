@@ -1,5 +1,6 @@
 package com.hzw.spring.usermanage.api.service;
 
+import com.github.pagehelper.PageInfo;
 import com.hzw.spring.usermanage.provider.entity.User;
 
 /**
@@ -11,4 +12,5 @@ public interface UserService {
 
     User get(Integer key);
 
+    PageInfo<User> page(Integer pageNum, Integer pageSize);
 }

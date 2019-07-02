@@ -22,6 +22,6 @@ public class Test {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         UserMapper mapper = sqlSession.getMapper(UserMapper.class);
         User user = mapper.selectByUserId(1);
-
+        System.out.println("User: " + user);
     }
 }
