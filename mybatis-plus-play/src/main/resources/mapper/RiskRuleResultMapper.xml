@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzw.mp.mapper.RiskRuleResultMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hzw.mp.entity.RiskRuleResultDO">
+        <id column="id" property="id" />
+        <result column="rule_id" property="ruleId" />
+        <result column="name" property="name" />
+        <result column="subject_id" property="subjectId" />
+        <result column="status" property="status" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="description" property="description" />
+        <result column="permission_group_id" property="permissionGroupId" />
+        <result column="fund_party" property="fundParty" />
+        <result column="asset_from" property="assetFrom" />
+        <result column="biz_type" property="bizType" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, rule_id, name, subject_id, status, updated_at, description, permission_group_id, fund_party, asset_from, biz_type
+    </sql>
+
+    <select id="getMyOne" resultType="com.hzw.mp.entity.RiskRuleResultDO">
+        select
+        <include refid="Base_Column_List"></include>
+        from
+        risk_rule_result
+        where
+        id = #{id}
+        and 3 = 3
+    </select>
+
+
+</mapper>
