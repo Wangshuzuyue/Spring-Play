@@ -1,0 +1,16 @@
+mp:
+#是否覆盖原文件
+ override: true
+ datasource:
+   url: jdbc:mysql://localhost:3306/bfq_customer?useUnicode=true&useSSL=false&characterEncoding=utf8
+   driverName: com.mysql.jdbc.Driver
+   username: root
+   password: 12345678
+ entity:
+    package: com.hzw.mybatis.test.entity
+ mapper:
+#   是否生成mapper 注意:第一次生成Mapper之后记得再改回false
+    generate: true
+    package: com.hzw.mybatis.test.mapper
+#表名，多个用逗号分隔
+ tableNames: companysub_info,anxinsign_info,organization_ext

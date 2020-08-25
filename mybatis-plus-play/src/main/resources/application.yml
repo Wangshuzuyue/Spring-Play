@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/wdy?characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: 12345678
+
+logging:
+  level:
+    com.hzw.mp.mapper: trace
+  pattern: '%p%m%n'
+
+mybatis-plus:
+  global-config:
+    worker-id: 16
+    datacenter-id: 17
+    db-config:
+      id-type: id_worker
+  mapper-locations: classpath:mapper/*.xml
+

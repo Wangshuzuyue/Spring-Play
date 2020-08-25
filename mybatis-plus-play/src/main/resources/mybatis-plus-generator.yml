@@ -1,0 +1,33 @@
+mp:
+  #是否覆盖原文件
+  override: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/wdy?useUnicode=true&useSSL=false&characterEncoding=utf8
+    driverName: com.mysql.jdbc.Driver
+    username: root
+    password: 12345678
+
+  entity:
+    package: com.hzw.mp.entity
+#    实体名的前缀和后缀
+    prefix:
+    suffix: DO
+
+  mapper:
+    #   是否生成mapper 注意:第一次生成Mapper之后记得再改回false
+    generate: true
+    package: com.hzw.mp.mapper
+    xmlGenerate: true
+    xmlPath: resources/mapper
+
+  #表名，多个用逗号分隔
+  table:
+   names: risk_rule_result
+   # 表名前缀(用于生成entity时,有则去除)
+   prefix: tb_
+
+  # 主键策略: MP支持6种策略(若表id已定义为自增，则该配置无效)
+  # auto自增, input自行输入
+  # worker雪花ID, worker_str字符串型雪花ID
+  # uuid, none或不填即跟随全局(默认雪花ID)
+  idType: input
