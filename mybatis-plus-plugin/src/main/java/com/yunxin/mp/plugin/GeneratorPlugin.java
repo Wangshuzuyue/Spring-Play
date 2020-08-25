@@ -41,8 +41,14 @@ public class GeneratorPlugin extends AbstractMojo {
         System.out.println("GeneratorPlugin >>>>>> 读取到项目地址:" + projectDir);
         System.out.println("GeneratorPlugin >>>>>> 读取到配置文件地址:" + configPath);
 
-        FileSystemResource fileSystemResource = new FileSystemResource(configPath);
-
+        System.out.println("GeneratorPlugin >>>>>> 配置文件解析1");
+        FileSystemResource fileSystemResource = null;
+        try {
+            fileSystemResource = new FileSystemResource(configPath);
+        }catch (Throwable e){
+            System.out.println("GeneratorPlugin >>>>>> 配置文件解析2:" + e);
+        }
+        System.out.println("GeneratorPlugin >>>>>> 配置文件解析3:" + fileSystemResource);
         YamlPropertiesFactoryBean yaml = new YamlPropertiesFactoryBean();
         yaml.setResources(fileSystemResource);
         Properties properties = yaml.getObject();
@@ -73,6 +79,8 @@ public class GeneratorPlugin extends AbstractMojo {
         gc.setFileOverride(override);
         gc.setBaseResultMap(true);
         gc.setBaseColumnList(true);
+
+        //前后缀
         StringBuffer entityNameBuffer = new StringBuffer();
         if (StringUtils.isNotEmpty(entityPrefix)){
             entityNameBuffer.append(entityPrefix);
@@ -83,6 +91,18 @@ public class GeneratorPlugin extends AbstractMojo {
         }
         gc.setEntityName(entityNameBuffer.toString());
         gc.setOutputDir(projectDir + "/src/main/java");
+
+        StringBuffer mapperNameBuffer = new StringBuffer();
+        if (StringUtils.isNotEmpty(mapperPrefix)){
+            mapperNameBuffer.append(mapperPrefix);
+        }
+        mapperNameBuffer.append("%s");
+        if (StringUtils.isNotEmpty(mapperSuffix)){
+            mapperNameBuffer.append(mapperSuffix);
+        }
+        mapperNameBuffer.append("Mapper");
+        gc.setMapperName(mapperNameBuffer.toString());
+        gc.setXmlName(gc.getMapperName());
 //        gc.setAuthor("jobob");
         gc.setOpen(false);
         //主键策略
@@ -152,7 +172,7 @@ public class GeneratorPlugin extends AbstractMojo {
         focList.add(new FileOutConfig(entityTemplate) {
             @Override
             public String outputFile(TableInfo tableInfo) {
-                // 自定义输出文件名
+                // 自定义输出目录
                 String packagePath = pc.getEntity().replace(".", "/") + "/";
                 String path = projectDir + "/src/main/java/" + packagePath + tableInfo.getEntityName() + ".java";
                 return path;
@@ -163,9 +183,10 @@ public class GeneratorPlugin extends AbstractMojo {
             focList.add(new FileOutConfig(mapperTemplate) {
                 @Override
                 public String outputFile(TableInfo tableInfo) {
-                    // 自定义输出文件名
+                    //自定义输出目录
                     String packagePath = pc.getMapper().replace(".", "/") + "/";
-                    String path = projectDir + "/src/main/java/" + packagePath + tableInfo.getMapperName() + ".java";
+                    String path = String.format("%s/src/main/java/%s%s.java", projectDir, packagePath, tableInfo.getMapperName());
+                    System.out.println(">>>>>>mapper生成目录" + path);
                     return path;
                 }
             });
@@ -177,7 +198,7 @@ public class GeneratorPlugin extends AbstractMojo {
             focList.add(new FileOutConfig(mapperXmlTemplate) {
                 @Override
                 public String outputFile(TableInfo tableInfo) {
-                    // 自定义输出文件名
+                    //自定义输出目录
                     String path = String.format("%s/src/main/%s/%s.xml", projectDir, xmlPath, tableInfo.getXmlName());
                     System.out.println(">>>>>>xml生成目录" + path);
 //                    String path = projectDir + "/src/main/" + xmlPath + tableInfo.getXmlName() + ".xml";

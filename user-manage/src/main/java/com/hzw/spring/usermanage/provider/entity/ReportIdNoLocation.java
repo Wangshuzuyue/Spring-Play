@@ -76,7 +76,7 @@ public class ReportIdNoLocation implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
+        sb.append(", name=").append(id);
         sb.append(", no=").append(no);
         sb.append(", location=").append(location);
         sb.append(", serialVersionUID=").append(serialVersionUID);

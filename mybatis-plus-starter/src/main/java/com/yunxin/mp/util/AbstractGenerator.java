@@ -1,12 +1,8 @@
-package com.hzw.mybatis.lessxml.utils;//package com.yunxin.mp.util;
-
-import com.google.common.base.Preconditions;
-import lombok.Setter;
-import org.apache.ibatis.executor.keygen.KeyGenerator;
+package com.yunxin.mp.util;
 
 import java.util.Calendar;
 
-public abstract class AbstractGenerator implements KeyGenerator {
+public abstract class AbstractGenerator {
 
     public static final long EPOCH;
 
@@ -27,10 +23,7 @@ public abstract class AbstractGenerator implements KeyGenerator {
      */
     protected static final int RANDOM_BOUND = 9984;
 
-    public static long workerId;
-
-    @Setter
-    protected static TimeService timeService = new TimeService();
+    private long workerId;
 
     static {
         Calendar calendar = Calendar.getInstance();
@@ -42,23 +35,21 @@ public abstract class AbstractGenerator implements KeyGenerator {
         EPOCH = calendar.getTimeInMillis();
     }
 
-    @Override
     public void setWorkerId(final long workerId) {
-        Preconditions.checkArgument(workerId >= 0L && workerId < WORKER_ID_MAX_VALUE);
-        AbstractGenerator.workerId = workerId;
+        if (!(workerId >= 0L && workerId < WORKER_ID_MAX_VALUE)){
+            throw new RuntimeException(String.format("workId设置异常,需在0 - %s取值.[%s]",WORKER_ID_MAX_VALUE, workerId));
+        }
+        this.workerId = workerId;
     }
 
-    @Override
     public long getWorkerId() {
-        return AbstractGenerator.workerId;
+        return workerId;
     }
 
-    @Override
     public long generateKey() {
         return 0;
     }
 
-    @Override
     public long generateBusinessKey(long coreId) {
         return 0;
     }
@@ -70,9 +61,9 @@ public abstract class AbstractGenerator implements KeyGenerator {
      * @return
      */
     protected long waitUntilNextTime(final long lastTime) {
-        long time = timeService.getCurrentMillis();
+        long time = System.currentTimeMillis();
         while (time <= lastTime) {
-            time = timeService.getCurrentMillis();
+            time = System.currentTimeMillis();
         }
         return time;
     }

@@ -64,7 +64,7 @@
 <!--        <table tableName="work_date" domainObjectName="WorkDateDO" -->
 <!--               enableCountByExample="false" enableDeleteByExample="false"-->
 <!--               enableSelectByExample="false" enableUpdateByExample="false">-->
-<!--            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+<!--            <generatedKey column="name" sqlStatement="Mysql" identity="true"/>-->
 <!--        </table>-->
 
     </context>

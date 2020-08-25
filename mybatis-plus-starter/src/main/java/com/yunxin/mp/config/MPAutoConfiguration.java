@@ -1,6 +1,8 @@
 package com.yunxin.mp.config;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import com.yunxin.mp.util.SnowKey;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,6 +15,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MPAutoConfiguration {
 
+
+    @Value("${project.workId}")
+    private Long workId;
+
     /**
      * 物理分页插件【MP默认是逻辑分页】
      * @return
@@ -22,12 +28,12 @@ public class MPAutoConfiguration {
         return new PaginationInterceptor();
     }
 
-//    /**
-//     * 自定义ID生成器【雪花】
-//     * @return
-//     */
-//    @Bean
-//    public IKeyGenerator snowWorkerIDGenerator(){
-//        return new SnowWorkerIDGenerator();
-//    }
+    /**
+     * 自定义ID生成器【雪花】
+     * @return
+     */
+    @Bean
+    public SnowKey snowKey(){
+        return new SnowKey(workId);
+    }
 }

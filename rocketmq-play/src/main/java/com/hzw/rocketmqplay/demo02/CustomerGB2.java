@@ -15,7 +15,7 @@ import java.util.List;
  * @date: 2020-07-01 23:06
  * @description:
  */
-public class CustomerGB1 {
+public class CustomerGB2 {
 
     public static void main(String[] args) throws Exception {
         //同一group下的Customer只会有一个消费消息

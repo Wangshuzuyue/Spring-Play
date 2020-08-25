@@ -1,8 +1,7 @@
-package com.example.demo.lambdaTest;
+package com.example.demo.lambdaTest.result;
 
 import lombok.Data;
 
-import java.io.File;
 import java.util.List;
 
 /**
@@ -11,20 +10,11 @@ import java.util.List;
  * @description:
  */
 @Data
-public class ExcelResolveResult<T> {
+public class ExcelResolveResult {
 
     /**
-     * 转换成功的数据列表
+     * 每个Sheet的解析结果
      */
-    List<T> list;
+    List<SheetResolveResult> sheetResolveResults;
 
-    /**
-     * 转换失败结果列表
-     */
-    List<RowConvertResult> failResults;
-
-    /**
-     * 结果文件【失败时】
-     */
-    File file;
 }

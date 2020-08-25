@@ -57,7 +57,7 @@
         <plugins>
             <plugin>
                 <groupId>com.yunxin</groupId>
-                <artifactId>mybatis-plus-starter</artifactId>
+                <artifactId>mybatis-plus-plugin</artifactId>
                 <version>1.0</version>
                 <configuration>
                     <configPath>${project.basedir}/src/main/resources/mybatis-plus-generator.yml</configPath>

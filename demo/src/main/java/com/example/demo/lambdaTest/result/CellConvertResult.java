@@ -5,10 +5,15 @@ import lombok.Data;
 /**
  * @author: huangzuwang
  * @date: 2020-04-29 13:45
- * @description:
+ * @description: 单元格转换结果
  */
 @Data
-public class DataConvertResult<T> {
+public class CellConvertResult<R> {
+
+    /**
+     * 是否成功
+     */
+    private boolean success;
 
     /**
      * 原数据
@@ -18,11 +23,10 @@ public class DataConvertResult<T> {
     /**
      * 转换成功后的数据
      */
-    private T data;
+    private R data;
 
     /**
      * 失败原因
      */
     private String failReason;
-
 }

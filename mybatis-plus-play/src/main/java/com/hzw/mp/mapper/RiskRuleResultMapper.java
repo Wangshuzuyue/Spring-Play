@@ -14,5 +14,5 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface RiskRuleResultMapper extends BaseMapper<RiskRuleResultDO> {
 
-    RiskRuleResultDO getMyOne(@Param("id")String id);
+    RiskRuleResultDO getMyOne(@Param("name")String id);
 }

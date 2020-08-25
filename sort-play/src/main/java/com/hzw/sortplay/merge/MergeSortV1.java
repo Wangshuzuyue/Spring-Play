@@ -1,11 +1,13 @@
-package com.hzw.sortplay;
+package com.hzw.sortplay.merge;
+
+import com.hzw.sortplay.SortUtils;
 
 /**
  * @author: huangzuwang
  * @date: 2020-06-23 19:29
  * @description: 归并排序【整体分成左右2部分, 分别有序后，再合并】
  */
-public class MergeSort {
+public class MergeSortV1 {
     public static void main(String[] args) {
         int[] arr = {7, 8, 15, 2, 30, 3, 1, 8, 7, 19, 4};
         sort(arr);

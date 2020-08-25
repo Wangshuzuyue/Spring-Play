@@ -4,12 +4,11 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import tk.mybatis.spring.mapper.MapperScannerConfigurer;
 
-import java.util.Properties;
+import java.sql.Driver;
+import java.util.ServiceLoader;
 
 @SpringBootApplication
 @Configuration
@@ -19,6 +18,13 @@ public class StarterApplication  extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
 		SpringApplication.run(StarterApplication.class, args);
+
+		ServiceLoader<Driver> serviceLoader = ServiceLoader.load(Driver.class);
+		for (Driver driverService: serviceLoader){
+			System.out.println(driverService);
+			System.out.println("12321");
+		}
+
 	}
 
 }

@@ -1,7 +1,4 @@
 package com.yunxin.mp.util;//package com.yunxin.mp.util;
-
-import com.google.common.base.Preconditions;
-
 import java.util.Random;
 
 /**
@@ -23,7 +20,7 @@ import java.util.Random;
  * <pre>
  * 1bit   sign bit.
  * 41bits timestamp offset from 2019.01.01 to now.
- * 5bits  worker process id. (范围0-31)
+ * 5bits  worker process name. (范围0-31)
  * 17bits auto increment offset in one mills
  * </pre>
  *
@@ -34,7 +31,7 @@ import java.util.Random;
  * @author jianglongtao/ huangzuwang
  */
 
-public final class SnowId extends AbstractGenerator {
+public final class SnowKey extends AbstractGenerator {
 
     private byte sequenceOffset;
 
@@ -50,14 +47,16 @@ public final class SnowId extends AbstractGenerator {
     private static final Random RANDOM = new Random();
 
 
-    public SnowId(Long workId) {
+    public SnowKey(Long workId) {
         setWorkerId(workId);
     }
 
     @Override
     public synchronized long generateKey() {
         long currentMillis = System.currentTimeMillis();
-        Preconditions.checkState(lastTime <= currentMillis, "Clock is moving backwards, last time is %d milliseconds, current time is %d milliseconds", lastTime, currentMillis);
+        if (lastTime > currentMillis){
+            throw new RuntimeException(String.format("Clock is moving backwards, last time is %s milliseconds, current time is %s milliseconds", lastTime, currentMillis));
+        }
         if (lastTime == currentMillis) {
             if (0L == (sequence = (sequence + 1) & SEQUENCE_MASK)) {
                 currentMillis = waitUntilNextTime(currentMillis);
@@ -78,7 +77,9 @@ public final class SnowId extends AbstractGenerator {
     @Override
     public synchronized long generateBusinessKey(long coreId) {
         long currentMillis = System.currentTimeMillis();
-        Preconditions.checkState(businessLastTime <= currentMillis, "Clock is moving backwards, last time is %d milliseconds, current time is %d milliseconds", businessLastTime, currentMillis);
+        if (businessLastTime > currentMillis){
+            throw new RuntimeException(String.format("Clock is moving backwards, last time is %s milliseconds, current time is %s milliseconds", businessLastTime, currentMillis));
+        }
         if (businessLastTime == currentMillis) {
             // 同一毫秒时间内
             // 加10000，增加万位数值

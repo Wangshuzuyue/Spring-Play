@@ -5,12 +5,18 @@
 
 	<groupId>com.hzw.spring</groupId>
 	<artifactId>spring-play</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.1</version>
 	<modules>
 		<module>starter</module>
 		<module>user-manage</module>
 		<module>risk-manage</module>
-	</modules>
+		<module>pay-manage</module>
+        <module>java8-concurrency</module>
+        <module>mybatis-plus-play</module>
+        <module>mybatis-plus-starter</module>
+        <module>mybatis-plus-test</module>
+        <module>mybatis-plus-plugin</module>
+    </modules>
 	<packaging>pom</packaging>
 
 	<name>spring-play</name>
@@ -114,9 +120,9 @@
 			<version>1.16.18</version>
 		</dependency>
 		<dependency>
-			<artifactId>api-definition</artifactId>
 			<groupId>com.hzw.rpc</groupId>
-			<version>1.2-SNAPSHOT</version>
+			<artifactId>api-definition</artifactId>
+			<version>1.3-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 

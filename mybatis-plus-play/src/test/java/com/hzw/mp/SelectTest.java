@@ -14,16 +14,14 @@ import com.hzw.mp.mapper.CompanyInfoMapper;
 import com.hzw.mp.mapper.RiskCheckMapper;
 import com.hzw.mp.mapper.RiskRuleResultMapper;
 import com.hzw.mp.mapper.RiskRuleWarningMapper;
+import com.yunxin.mp.util.SnowKey;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author: huangzuwang
@@ -45,6 +43,22 @@ public class SelectTest {
 
     @Autowired
     private RiskRuleResultMapper riskRuleResultMapper;
+
+    @Autowired
+    private SnowKey snowKey;
+
+    @Test
+    public void genKey(){
+        Set<Long> set = new HashSet<>();
+        for (int i = 0; i < 500000; i++){
+            long l = snowKey.generateBusinessKey(5566l);
+            System.out.println(">>>>" + l);
+            if (!set.add(l)){
+                throw new RuntimeException("<<<<<<<" + l);
+            }
+
+        }
+    }
 
 
     @Test

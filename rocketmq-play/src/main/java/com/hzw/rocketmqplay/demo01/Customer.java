@@ -1,4 +1,4 @@
-package com.hzw.rocketmqplay;
+package com.hzw.rocketmqplay.demo01;
 
 
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;

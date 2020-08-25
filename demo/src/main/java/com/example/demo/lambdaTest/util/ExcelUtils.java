@@ -1,6 +1,5 @@
-package com.yunxin.platform.client.service.util;
+package com.example.demo.lambdaTest.util;
 
-import com.yunxin.common.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -15,7 +14,6 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.yunxin.common.response.CodeEnum.EXCEL_EXIST_ERROR_DATA;
 import static org.apache.poi.ss.usermodel.CellType.STRING;
 
 /**
@@ -88,7 +86,6 @@ public class ExcelUtils {
             }
         } catch (Throwable b) {
             log.info("读取格式不是NUMERIC格式");
-            throw new BusinessException(EXCEL_EXIST_ERROR_DATA.getCode(), EXCEL_EXIST_ERROR_DATA.getDesc());
         }
         return null;
     }
@@ -118,7 +115,7 @@ public class ExcelUtils {
                 }
                 if (currentRow.getCell(colNum) != null) {
                     Cell currentCell = currentRow.getCell(colNum);
-                    if (currentCell.getCellType() == STRING) {
+                    if (currentCell.getCellTypeEnum() == STRING) {
                         int length = currentCell.getStringCellValue().getBytes().length;
                         if (columnWidth < length) {
                             columnWidth = length;

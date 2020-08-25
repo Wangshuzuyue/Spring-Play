@@ -1,5 +1,6 @@
-package com.example.demo.lambdaTest;
+package com.example.demo.lambdaTest.convert;
 
+import com.example.demo.lambdaTest.result.CellConvertResult;
 import org.apache.poi.ss.usermodel.Cell;
 
 /**
@@ -7,11 +8,14 @@ import org.apache.poi.ss.usermodel.Cell;
  * @date: 2020-04-29 11:47
  * @description:
  */
-public class SerialNoConverter implements ExcelColDataConverter<String> {
+public class SerialNoConverter extends DefaultStringConverter{
 
     @Override
-    public DataConvertResult<String> convert(Cell cell, int index) {
-        DataConvertResult<String> result = new DataConvertResult<>();
+    public CellConvertResult<String> convert(Cell cell, String header) {
+        CellConvertResult<String> result = super.convert(cell, header);
+        if (!result.isSuccess()){
+            return result;
+        }
 
 
         return result;

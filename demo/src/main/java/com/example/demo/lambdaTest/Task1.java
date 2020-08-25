@@ -8,9 +8,9 @@ import lombok.Data;
  * @description:
  */
 @Data
-public class Task {
+public class Task1 {
 
-    private String name;
+    private String name1;
 
-    private String certNo;
+    private String certNo1;
 }

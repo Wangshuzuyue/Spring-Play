@@ -12,9 +12,12 @@ logging:
 
 mybatis-plus:
   global-config:
-    worker-id: 16
-    datacenter-id: 17
     db-config:
-      id-type: id_worker
+#      全局主键生成策略：自行输入
+      id-type: input
+#      mapper.xml文件扫描路径
   mapper-locations: classpath:mapper/*.xml
 
+project:
+#  0 - 31 之间 该值每个部署节点不能重复
+  workId: 0

@@ -20,6 +20,7 @@ public class UserController {
 
     @RequestMapping(value = "/add", method = {RequestMethod.GET,RequestMethod.POST})
     public Object add(User user){
+        System.out.println("12321");
         return userService.add(user);
     }
 

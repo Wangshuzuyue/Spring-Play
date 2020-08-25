@@ -1,7 +1,7 @@
 package com.hzw.spring.usermanage.rpc;
 
 
-import com.hzw.rpc.api.RpcRequest;
+import com.hzw.rpc.RpcRequest;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

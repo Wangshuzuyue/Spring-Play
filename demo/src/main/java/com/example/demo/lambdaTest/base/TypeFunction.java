@@ -1,6 +1,10 @@
 package com.example.demo.lambdaTest.base;
 
+import java.beans.Introspector;
 import java.io.Serializable;
+import java.lang.invoke.SerializedLambda;
+import java.lang.reflect.Method;
+import java.util.function.Function;
 
 /**
  * @author: huangzuwang
@@ -11,11 +15,11 @@ import java.io.Serializable;
 public interface TypeFunction<T, R> extends Serializable, Function<T, R> {
 
     /**
-     * 获取列名称
+     * 方法对应属性名称
      * @param lambda
      * @return String
      */
-    static String getLambdaColumnName(Serializable lambda) {
+    static String getLambdaFieldName(Serializable lambda) {
         try {
             Method method = lambda.getClass().getDeclaredMethod("writeReplace");
             method.setAccessible(Boolean.TRUE);
@@ -28,6 +32,3 @@ public interface TypeFunction<T, R> extends Serializable, Function<T, R> {
         }
     }
 }
-————————————————
-        版权声明：本文为CSDN博主「tom有了cat」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
-        原文链接：https://blog.csdn.net/qq_35410620/java/article/details/103007557

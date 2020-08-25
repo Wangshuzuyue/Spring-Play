@@ -14,15 +14,19 @@ mp:
     suffix: DO
 
   mapper:
-    #   是否生成mapper 注意:第一次生成Mapper之后记得再改回false
+    #   是否生成mapper和xml 注意:第一次生成Mapper和xml之后记得再改回false
+    #   怕覆盖原文件建议修改前后缀，然后拷贝需要的代码
     generate: true
     package: com.hzw.mp.mapper
     xmlGenerate: true
     xmlPath: resources/mapper
+    #    对应的前后缀
+    prefix:
+    suffix: DO
 
   #表名，多个用逗号分隔
   table:
-   names: risk_rule_result
+   names: risk_rule
    # 表名前缀(用于生成entity时,有则去除)
    prefix: tb_
 

@@ -1,4 +1,4 @@
-package com.example.demo.methodtest;
+package com.example.demo.methodTest;
 
 /**
  * @author: huangzuwang
@@ -6,4 +6,6 @@ package com.example.demo.methodtest;
  * @description:
  */
 public class B {
+
+
 }

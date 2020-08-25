@@ -6,4 +6,15 @@ package com.hzw.pay.enums;
  * @description:
  */
 public enum TestEnum {
+
+    A(1, "aaa");
+
+    TestEnum(Integer code, String desc) {
+        this.code = code;
+        this.desc = desc;
+    }
+
+    private Integer code;
+
+    private String desc;
 }

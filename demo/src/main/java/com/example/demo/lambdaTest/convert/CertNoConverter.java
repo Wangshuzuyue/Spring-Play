@@ -8,11 +8,14 @@ import org.apache.poi.ss.usermodel.Cell;
  * @date: 2020-04-29 11:47
  * @description:
  */
-public class SerialNoConverter implements ExcelCellConverter<String>{
+public class CertNoConverter extends DefaultStringConverter{
 
     @Override
     public CellConvertResult<String> convert(Cell cell, String header) {
-        CellConvertResult<String> result = new CellConvertResult<>();
+        CellConvertResult<String> result = super.convert(cell, header);
+        if (!result.isSuccess()){
+            return result;
+        }
 
 
         return result;

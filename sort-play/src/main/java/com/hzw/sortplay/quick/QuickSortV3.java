@@ -5,16 +5,54 @@ import com.hzw.sortplay.SortUtils;
 /**
  * @author: huangzuwang
  * @date: 2020-06-23 19:29
- * @description: 快速排序【利用荷兰国旗】
+ * @description: 快速排序【利用荷兰国旗】O(nlogn)
+ * 与V2最本质区别，每次划分前，随机取分区内的某个数与最后的基准数做交换
+ * 概率累加，期望的结果：O(nlogn)
  */
-public class QuickSortV2 {
+public class QuickSortV3 {
     public static void main(String[] args) {
-        int[] arr = {7, 8, 15, 2, 30, 3, 1, 8, 7, 19, 4, 4, 30};
+//        int[] arr = {1,2,3,4,5,6,7,8,9,10};
+        int[] arr = {3,4,-1,1};
         sort(arr);
         SortUtils.printArr(arr);
+        int testTime = 500;
+        int maxSize = 10000;
+        int maxValue= 1000;
+        boolean successed = true;
+        long time1 = 0l;
+        long time2 = 0l;
+        long time3 = 0l;
+        for (int i = 0; i < testTime; i++){
+            int[] arr1 = {3,4,-1,1};
+//            int[] arr1 = SortUtils.generateRandomArray(maxSize, maxValue);
+            //v1 和 v2的最坏情况
+//            int[] arr1 = SortUtils.generateSortedArrayEsc(maxSize, maxValue);
+//            int[] arr1 = SortUtils.generateSortedArrayDesc(maxSize, maxValue);
+            int[] arr2 = SortUtils.copyArray(arr1);
+            int[] arr3 = SortUtils.copyArray(arr1);
+            long startTime = System.currentTimeMillis();
+            QuickSortV1.sort(arr1);
+            long endTime1 = System.currentTimeMillis();
+            QuickSortV2.sort(arr2);
+            long endTime2 = System.currentTimeMillis();
+            QuickSortV3.sort(arr3);
+            long endTime3 = System.currentTimeMillis();
+            time1 += endTime1 - startTime;
+            time2 += endTime2 - endTime1;
+            time3 += endTime3 - endTime2;
+            if (!SortUtils.isEqual(arr1, arr2, arr3)){
+                successed = false;
+                break;
+            }
+        }
+        System.out.println();
+        System.out.println(successed ? "Nice!" : "Oops!");
+        System.out.println("V1耗时:" + time1);
+        System.out.println("V2耗时:" + time2);
+        System.out.println("V3耗时:" + time3);
     }
 
-    private static int[] sort(int[] arr) {
+    public static int[] sort(int[] arr) {
         if (arr == null || arr.length <= 1) {
             return arr;
         }
@@ -26,6 +64,8 @@ public class QuickSortV2 {
         if (l >= r){
             return;
         }
+        int offset = (int) (Math.random() * (r - l + 1));
+        SortUtils.swap(arr, l + offset, r);
         int[] equalArea = netherLandsFlag(arr, l, r);
         process(arr, l, equalArea[0] - 1);
         process(arr, equalArea[1] + 1, r);
@@ -58,5 +98,8 @@ public class QuickSortV2 {
         }
         return new int[]{less + 1, i};
     }
+
+
+
 
 }

@@ -5,16 +5,16 @@ import com.hzw.sortplay.SortUtils;
 /**
  * @author: huangzuwang
  * @date: 2020-06-23 19:29
- * @description: 快速排序【利用荷兰国旗】
+ * @description: 快速排序【利用荷兰国旗, 能够一次性确定多个重复值的位置】O(n²),
  */
 public class QuickSortV2 {
     public static void main(String[] args) {
-        int[] arr = {7, 8, 15, 4, 2, 30, 4, 3, 1, 8, 7, 19, 4};
+        int[] arr = {7, 8, 15, 2, 30, 3, 1, 8, 7, 19, 4, 4, 30};
         sort(arr);
         SortUtils.printArr(arr);
     }
 
-    private static int[] sort(int[] arr) {
+    public static int[] sort(int[] arr) {
         if (arr == null || arr.length <= 1) {
             return arr;
         }
@@ -26,11 +26,7 @@ public class QuickSortV2 {
         if (l >= r){
             return;
         }
-
-        int[] equalArea = getEqualArea(arr, l, r);
-
-
-        //每次都会排好一个数的位置，所以那个数就不用动了
+        int[] equalArea = netherLandsFlag(arr, l, r);
         process(arr, l, equalArea[0] - 1);
         process(arr, equalArea[1] + 1, r);
     }
@@ -46,16 +42,21 @@ public class QuickSortV2 {
         int less = l - 1;
         int more = r;
         int i = l;
-        while (i <= r){
-            if (arr[i] <= arr[r]){
+        while (i <= r) {
+            if (arr[i] < arr[r]) {
                 SortUtils.swap(arr, ++less, i);
                 i++;
+            } else if (arr[i] == arr[r]) {
+                i++;
+            } else {
+                SortUtils.swap(arr, --more, i);
             }
-            if (i == more){
+            if (i == more) {
                 SortUtils.swap(arr, more, r);
                 break;
             }
         }
+        return new int[]{less + 1, i};
     }
 
 }

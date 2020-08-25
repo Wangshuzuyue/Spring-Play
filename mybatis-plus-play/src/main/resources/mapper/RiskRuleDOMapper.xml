@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzw.mp.mapper.RiskRuleDOMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hzw.mp.entity.RiskRuleDO">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="class_name" property="className" />
+        <result column="risk_rule_template_id" property="riskRuleTemplateId" />
+        <result column="eval_type" property="evalType" />
+        <result column="input_type" property="inputType" />
+        <result column="status" property="status" />
+        <result column="comment" property="comment" />
+        <result column="eval_phase" property="evalPhase" />
+        <result column="dict_entry" property="dictEntry" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, class_name, risk_rule_template_id, eval_type, input_type, status, comment, eval_phase, dict_entry
+    </sql>
+
+</mapper>

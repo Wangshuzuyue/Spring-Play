@@ -1,13 +1,10 @@
-package com.yunxin.common.page;
-
-import lombok.Data;
+package com.yunxin.mp.entity;
 
 /**
  * @description: 分页入参
  * @author: huangzuwang
  * @date: 2019-12-07 20:17
  **/
-@Data
 public class OffsetReq {
 
 	/**
@@ -20,4 +17,28 @@ public class OffsetReq {
 	 */
 	private int count = 10;
 
+
+	public int getOffset() {
+		return offset;
+	}
+
+	public void setOffset(int offset) {
+		this.offset = offset;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	@Override
+	public String toString() {
+		return "OffsetReq{" +
+				"offset=" + offset +
+				", count=" + count +
+				'}';
+	}
 }

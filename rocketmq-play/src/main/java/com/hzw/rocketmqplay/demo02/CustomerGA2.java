@@ -15,7 +15,7 @@ import java.util.List;
  * @date: 2020-07-01 23:06
  * @description:
  */
-public class CustomerGA1 {
+public class CustomerGA2 {
 
     public static void main(String[] args) throws Exception {
         //同一group下的Customer只会有一个消费消息
@@ -29,7 +29,7 @@ public class CustomerGA1 {
         //消息过滤器
         MessageSelector messageSelector = MessageSelector.bySql("age >= 18 and age <= 60");
         //过滤器 * 表示不过滤
-        consumer.subscribe("hzw_topic_01", messageSelector);
+        consumer.subscribe("hzw_topic_02", messageSelector);
 
         consumer.registerMessageListener(new MessageListenerConcurrently() {
             @Override

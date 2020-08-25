@@ -2,26 +2,20 @@ package com.example.demo.lambdaTest;
 
 import com.example.demo.lambdaTest.base.ExcelHandler;
 import com.example.demo.lambdaTest.base.ExcelHandlerBuilder;
-import com.example.demo.lambdaTest.convert.CertNoConverter;
-import com.example.demo.lambdaTest.convert.DefaultConverter;
-import com.example.demo.lambdaTest.result.ExcelResolveResult;
-import com.example.demo.lambdaTest.result.RowConvertResult;
-import com.example.demo.lambdaTest.result.SheetResolveResult;
 
-import java.io.*;
-import java.util.Arrays;
-import java.util.Collections;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.demo.lambdaTest.ExcelFailMark.APPEND_REASON;
-import static com.example.demo.lambdaTest.ExcelFailMark.MARK_RED;
 
 /**
  * @author: huangzuwang
  * @date: 2020-04-29 11:39
  * @description:
  */
-public class ExcelLambdaTest {
+public class ExcelListTest {
 
 //    @Bean(name = "taskExcelHandlerOnline")
 //    public ExcelHandler<Task> taskExcelHandler(){
@@ -34,43 +28,32 @@ public class ExcelLambdaTest {
         //构建
         ExcelHandlerBuilder builder = new ExcelHandlerBuilder();
         builder.createSheet("客户清单", Task.class)
-                .setFailMarks(Arrays.asList(MARK_RED, APPEND_REASON))
-                .setWriteBackMode(ExcelWriteBackMode.FAIL)
                 .setHeaders(new String[]{"客户签约姓名", "客户签约身份证号"})
-                .appendCol(Task::getName, DefaultConverter.class)
-                .appendCol(Task::getCertNo, CertNoConverter.class);
-
-        builder.createSheet("客户清单2", Task1.class)
-                .setFailMarks(Collections.singletonList(MARK_RED))
-                .setWriteBackMode(ExcelWriteBackMode.SUCCESS_FAIL)
-                .setHeaders(new String[]{"客户签约姓名1", "客户签约身份证号1"})
-                .appendCol(Task1::getName1, DefaultConverter.class)
-                .appendCol(Task1::getCertNo1, CertNoConverter.class);
+                .appendCol(Task::getName)
+                .appendCol(Task::getCertNo);
 
         ExcelHandler excelHandler = builder.build();
 
 
-        InputStream inputStream = new FileInputStream("/Users/huangzuwang/Documents/批量上传客户模板-线上-格式正确.xlsx");
-
         //使用
-        //解析文件
         try {
-            ExcelResolveResult excelResult = excelHandler.resolver(inputStream);
-            List<SheetResolveResult> sheetResolveResults = excelResult.getSheetResolveResults();
-            //此处要注意泛型写正确
-            SheetResolveResult<Task> sheetResolveResult = sheetResolveResults.get(0);
-            List<RowConvertResult<Task>> successResults = sheetResolveResult.getSuccessResults();
+            List<Task> taskList = new ArrayList<>();
+            Task task1 = new Task();
+            task1.setCertNo("12321");
+            task1.setName("hzw1");
+            taskList.add(task1);
+            Task task2 = new Task();
+            task2.setCertNo("12322");
+            task2.setName("hzw2");
+            taskList.add(task2);
+            Task task3 = new Task();
+            task3.setCertNo("123213");
+            task3.setName("hzw3");
+            taskList.add(task3);
 
-            for (RowConvertResult<Task> rowResult : successResults){
-                Task task = rowResult.getEntity();
-                rowResult.appendReason(Task::getName, "名字不正确");
-            }
 
-            //TODO 校验业务逻辑
-
-
-            InputStream generateInputStream = excelHandler.generate(excelResult);
-            OutputStream outputStream = new FileOutputStream("/Users/huangzuwang/Documents/生成文件名12321.xlsx");
+            InputStream generateInputStream = excelHandler.generateByList(taskList);
+            OutputStream outputStream = new FileOutputStream("/Users/huangzuwang/Documents/生成文件名12322.xlsx");
             byte[] b = new byte[4096];
             int len;
             while((len =generateInputStream.read(b)) != -1){

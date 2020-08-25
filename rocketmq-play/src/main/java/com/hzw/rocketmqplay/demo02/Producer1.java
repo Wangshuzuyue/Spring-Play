@@ -1,4 +1,4 @@
-package com.hzw.rocketmqplay.demo01;
+package com.hzw.rocketmqplay.demo02;
 
 
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
@@ -10,10 +10,10 @@ import org.apache.rocketmq.common.message.Message;
  * @date: 2020-07-01 23:06
  * @description:
  */
-public class Producer {
+public class Producer1 {
 
     public static void main(String[] args) throws Exception {
-        DefaultMQProducer producer = new DefaultMQProducer("hzw_01_producer");
+        DefaultMQProducer producer = new DefaultMQProducer("hzw_02_producer");
         //设置nameserver地址
         producer.setNamesrvAddr("39.107.238.67:9876");
         producer.setVipChannelEnabled(false);
@@ -29,8 +29,8 @@ public class Producer {
 
         // topic为消息将要发送的地址
         // 具体数据
-        for (int i = 1; i <= 100; i++){
-            Message msg = new Message("hzw_topic_01", ("hzwzzzz~~~" + i).getBytes());
+        for (int i = 18; i <= 18; i++){
+            Message msg = new Message("hzw_topic_02", ("hzwzzzz~~~" + i).getBytes());
             msg.putUserProperty("age", i + "");
             //同步
             SendResult sendResult = producer.send(msg);

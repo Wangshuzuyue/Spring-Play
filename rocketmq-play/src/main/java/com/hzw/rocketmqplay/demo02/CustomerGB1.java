@@ -15,11 +15,11 @@ import java.util.List;
  * @date: 2020-07-01 23:06
  * @description:
  */
-public class CustomerGA2 {
+public class CustomerGB1 {
 
     public static void main(String[] args) throws Exception {
         //同一group下的Customer只会有一个消费消息
-        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("hzw-group-a");
+        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("hzw-group-b");
         //设置nameserver地址
         consumer.setNamesrvAddr("39.107.238.67:9876");
         //消费超时时间 单位分钟, 默认15分钟
